@@ -19,7 +19,18 @@ const postSchema = new mongoose.Schema({
     postedBy:{ 
         type: ObjectId,
         ref: "User" // From the User Model
-    }
+    },
+    likes: [{
+        type: ObjectId, // because each individual id who like these posts will be stored in this array
+        ref: "User" // User model is the reference
+    }],
+    comments: [{
+        text: String,
+        postedBy: {
+            type: ObjectId,
+            ref: 'User'
+        }
+    }]
 })
 
 mongoose.model('Post', postSchema)
