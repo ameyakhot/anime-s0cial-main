@@ -4,9 +4,9 @@ const mongoose = require('mongoose')
 const User = mongoose.model('User')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-const {JWT_SECRET} = require('../keys')
+const {JWT_SECRET} = require('../config/keys')
 const requireLogin = require('../middleware/requireLogin')
-const keys = require('../keys')
+const keys = require('../config/keys')
 
 router.get('/', (req, res) => {
     res.send('Root Page')

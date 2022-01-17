@@ -1,8 +1,8 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const app = express()
-const port = 4000
-const {MONGOURI}= require('./keys')
+const port = process.env.PORT || 4000
+const {MONGOURI}= require('./config/keys')
 
 
 mongoose.connect(MONGOURI)
@@ -24,10 +24,15 @@ app.use(require('./routes/auth'))
 app.use(require('./routes/post'))
 app.use(require('./routes/user'))
 
-// const customMiddleware = (req, res, next) => {
-//     console.log('MW Exec')
-//     next() 
-// } 
+
+// production code
+if(process.env.NODE_ENV === "production"){
+    app.use(express.static('client/build'))
+    const path = require('path')
+    app.get("*", (req, res) => {
+        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+    })
+}
 
 // // Middleware executes for every route
 // // Next() is used to continue the flow to the next middleware or to continue the flow to the '/' route
