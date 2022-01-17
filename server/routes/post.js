@@ -43,7 +43,10 @@ router.put('/like', requireLogin, (req, res)=> {
     }, 
     {
         new: true
-    }).exec((err, result) => {
+    })
+    .populate("comments.postedBy", "_id name")
+    .populate("postedBy", "_id name")
+    .exec((err, result) => {
         if(err){
             return res.status(422).json(
                 {
@@ -63,7 +66,10 @@ router.put('/unlike', requireLogin, (req, res)=> {
     }, 
     {
         new: true
-    }).exec((err, result) => {
+    })
+    .populate("comments.postedBy", "_id name")
+    .populate("postedBy", "_id name")
+    .exec((err, result) => {
         if(err){
             return res.status(422).json(
                 {

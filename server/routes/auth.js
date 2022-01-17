@@ -27,7 +27,7 @@ router.post('/signup', (req, res) => {
 
     // if(password.length <= 8 || )
     User.findOne({
-        email: email
+        email
     }).then((savedUser)=>{
         if(savedUser){
             return res.status(422).json({
